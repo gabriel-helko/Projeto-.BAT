@@ -1,6 +1,7 @@
 @ECHO OFF
 SET simps=%cd%
 DEL /F /q %simps%\bkp_manutancao
+
 ECHO ***********************************************************
 ECHO *                                                         *
 ECHO *           ANTES DE PROSEGUIR COM A MANUTENCAO           *
@@ -40,8 +41,11 @@ taskkill /f /im fb_inet_server.exe
 REN simps.fdb _simps.fdb
 
 ROBOCOPY %simps% %simps%\bkp_manutancao _simps.fdb
+CD %simps%\bkp_manutancao
+REN _simps.fdb bkp_simps-%date:/=.%.fdb
+CD %simps%
 
-if NOT exist "%simps%\bkp_manutancao\_simps.fdb" (
+if NOT exist "%simps%\bkp_manutancao\bkp_simps-%date:/=.%.fdb" (
 CLS
 ECHO *******************************
 ECHO *                             * 
@@ -55,11 +59,16 @@ CLS
 ECHO *****************************************
 ECHO *                                       *   
 ECHO *   VERIFICAR SE FOI GERADO O ARQUIVO   *
-ECHO *    ##bkp_manutancao\_simps.fdb##      *
+ECHO *    ##bkp_simps-%date:/=.%.fdb##       *
+ECHO *             NA PASTA                  * 
+ECHO   %simps%\bkp_manutancao
 ECHO *  ANTES DE PROSEGUIR COM A MANUTENCAO  * 
 ECHO *                                       * 
 ECHO *****************************************
-PAUSE
+SET /P "confirma=Digite '1' se o aquivo bkp_simps-%date:/=.%.fdb foi gerado e '0' caso não: "
+if [%confirma%]==[1] (goto manut) else (exit)
+
+:manut
 CLS
 ECHO *****************************
 ECHO *                           * 
