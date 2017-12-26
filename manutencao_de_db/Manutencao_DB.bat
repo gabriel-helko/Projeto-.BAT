@@ -8,6 +8,7 @@ ECHO * CERTIFIQUE-SE QUE TODOS OS USUARIOS ESTAO FORA DO SIMPS *
 ECHO *  E QUE O AGENDADOR E SUAS INTERFACES FORAM FINALIZADOS  *
 ECHO *                                                         *
 ECHO ***********************************************************
+
 SET /P "confirma=Digite '1' para CONTINUAR ou '0' para CANCELAR: "
 if [%confirma%]==[1] (goto inicio) else (exit)
 
