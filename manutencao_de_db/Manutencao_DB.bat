@@ -61,12 +61,12 @@ ECHO *                                       *
 ECHO *   VERIFICAR SE FOI GERADO O ARQUIVO   *
 ECHO *    ##bkp_simps-%date:/=.%.fdb##       *
 ECHO *             NA PASTA                  * 
-ECHO   %simps%\bkp_manutancao
-ECHO *  ANTES DE PROSEGUIR COM A MANUTENCAO  * 
+ECHO * %simps%\bkp_manutancao*
+ECHO *  E O .FDB TEM TAMANHO IGUAL AO BANCO  * 
 ECHO *                                       * 
 ECHO *****************************************
-SET /P "confirma=Digite '1' se o aquivo bkp_simps-%date:/=.%.fdb foi gerado e '0' caso não: "
-if [%confirma%]==[1] (goto manut) else (exit)
+SET /P "confirma=Se tudo estiver ok digite 'okay' para proseguir: "
+if [%confirma%]==[okay] (goto manut) else (exit)
 
 :manut
 CLS
