@@ -59,9 +59,11 @@ CLS
 ECHO *****************************************
 ECHO *                                       *   
 ECHO *   VERIFICAR SE FOI GERADO O ARQUIVO   *
-ECHO *    ##bkp_simps-%date:/=.%.fdb##       *
+ECHO *    # bkp_simps-%date:/=.%.fdb #       *
 ECHO *             NA PASTA                  * 
-ECHO * %simps%\bkp_manutancao*
+ECHO -----------------------------------------
+ECHO  %simps%\bkp_manutancao
+ECHO -----------------------------------------
 ECHO *  E O .FDB TEM TAMANHO IGUAL AO BANCO  * 
 ECHO *                                       * 
 ECHO *****************************************
@@ -75,16 +77,20 @@ ECHO *                           *
 ECHO *  INICIANDO A MANUTENCAO   *
 ECHO *                           *
 ECHO *****************************
-@ECHO ON
 net start "FirebirdServerDefaultInstance"
 SET ISC_USER=SYSDBA
 SET ISC_PASSWORD=masterkey
+@ECHO ON
 gfix -v -full _simps.fdb
 gfix -mend -full -ignore _simps.fdb
 gbak -backup -v -ignore -garbage _simps.fdb simps.fbk
+@ECHO OFF
 if NOT ["%errorlevel%"]==["0"] (goto erro)
+@ECHO ON
 gbak -create -v -use_all_space simps.fbk SIMPSNOVO.fdb
+@ECHO OFF
 if NOT ["%errorlevel%"]==["0"] (goto erro)
+@ECHO ON
 gfix -v -full SIMPSNOVO.fdb
 @ECHO OFF
 if NOT ["%errorlevel%"]==["0"] (goto erro)  else (goto final)
